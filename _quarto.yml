@@ -10,7 +10,15 @@ book:
     - index.qmd
     - intro.qmd
     - summary.qmd
+    - hello.qmd
+    - computations.ipynb
     - references.qmd
+  repo-url: https://github.com/NFDI4Culture/cp4a/
+  repo-actions: [edit]
+  downloads: [pdf]
+
+comments:
+  hypothesis: true
 
 bibliography: references.bib
 

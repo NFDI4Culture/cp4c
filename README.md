@@ -13,6 +13,8 @@ terminal to install them
 
 <https://jupyter.org/install>
 
+Also install Panda: py -m pip install panda
+
 As well as knowing what the Python prompt and escape looks like:
 <https://stackoverflow.com/questions/41524734/how-to-exit-python-script-in-command-prompt>
 
