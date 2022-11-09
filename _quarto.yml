@@ -3,8 +3,8 @@ project:
   output-dir: docs
 
 book:
-  title: "cp4a"
-  author: "Jane Doe"
+  title: "Computational Publishing for Archives"
+  author: "Simon Worthington"
   date: "09/11/2022"
   chapters:
     - index.qmd
