@@ -12,7 +12,17 @@ services:
   quarto:
     build: ./quarto
     container_name: quarto
-    ports:
-      - "4479:4479"
+    volumes:
+      - .:/input
     stdin_open: true  # docker run -i
     tty: true         # docker run -t
+    
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "1337:80"
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d
+      - ./docs:/var/www/html
