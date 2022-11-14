@@ -12,6 +12,7 @@ book:
     - summary.qmd
     - hello.qmd
     - computations.ipynb
+    - linked_open_data.ipynb
     - references.qmd
   repo-url: https://github.com/NFDI4Culture/cp4a/
   repo-actions: [edit]
