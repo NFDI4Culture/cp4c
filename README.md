@@ -24,7 +24,7 @@ This repository also contains Docker Compose and Dockerfiles for running the var
 
 Run `docker-compose up -d --build` to start the containers and `docker-compose down` to stop the containers.
 
-The jupyterlab container runs a stand-alone version of JupyterLab on http://localhost:8888. This can be used to edit any Jupyter Notebook files in the repository. 
+The jupyterlab container runs a stand-alone version of JupyterLab on http://localhost:8888. This can be used to edit any Jupyter Notebook files in the repository. The JupyterLab instance runs with the password 'jupyterlab'.
 
 The nginx container runs Nginx webserver and displays the static site that Quarto renders. This runs at http://localhost:1337.
 
