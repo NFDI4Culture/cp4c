@@ -11,6 +11,7 @@ services:
     
   quarto:
     build: ./quarto
+    platform: linux/amd64
     container_name: quarto
     volumes:
       - .:/input
