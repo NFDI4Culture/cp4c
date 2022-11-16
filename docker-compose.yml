@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   jupyterlab:
-    image: mikebirdgeneau/jupyterlab
+    build: ./jupyter_docker
     container_name: jupyterlab
     ports:
       - "8888:8888"

@@ -32,7 +32,7 @@ The quarto container starts a Ubuntu 22.04 container, installs various things li
 
 `docker exec -it quarto quarto render` 
 
-(There's an open issue with how this Docker setup works in a MacOS environment. The Docker setup works in Ubuntu but Quarto doesn't run properly when Docker is run in MacOS. Unclear why but there's an open discussion with the Quarto team at https://github.com/quarto-dev/quarto-cli/discussions/3308)
+There's a known issue with Quarto running in the Docker container in macOS due to the amd64 emulation of Docker Desktop for arm64 MacOS. See discussion at https://github.com/quarto-dev/quarto-cli/discussions/3308. This shouldn't occur in any other environment running Docker.
 
 ## Create a book
 
