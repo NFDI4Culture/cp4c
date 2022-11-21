@@ -13,6 +13,7 @@ book:
     - hello.qmd
     - computations.ipynb
     - linked_open_data.ipynb
+    - orcid_get_works_by_person.ipynb
     - references.qmd
   repo-url: https://github.com/NFDI4Culture/cp4a/
   repo-actions: [edit]
