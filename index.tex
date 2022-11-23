@@ -213,7 +213,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, borderline west={3pt}{0pt}{shadecolor}, frame hidden, sharp corners, interior hidden, boxrule=0pt, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, boxrule=0pt, sharp corners, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -404,14 +404,17 @@ all outputs'.
 \section{Query}\label{query}}
 
 The below Python code experiments with using SPARQLWrapper to retrieve
-data based on a SPARQL query. Not working with NFDI4Culture Wikibase
-since I don't know the SPARQL endpoint URL.
+data from NFDI4Culture's Wikibase based on a SPARQL query.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{from}\NormalTok{ SPARQLWrapper }\ImportTok{import}\NormalTok{ SPARQLWrapper, JSON}
 \ImportTok{from}\NormalTok{ PIL }\ImportTok{import}\NormalTok{ Image}
+\ImportTok{from}\NormalTok{ ipypublish }\ImportTok{import}\NormalTok{ nb\_setup}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{import}\NormalTok{ pandas}
 \ImportTok{import}\NormalTok{ requests}
+\ImportTok{import}\NormalTok{ sparql\_dataframe}
 
 \KeywordTok{def}\NormalTok{ get\_delay(date):}
     \ControlFlowTok{try}\NormalTok{:}
@@ -436,80 +439,90 @@ since I don't know the SPARQL endpoint URL.
 \NormalTok{        time.sleep(timeout)}
 \NormalTok{        get\_image(url, headers)}
 
-\CommentTok{\# Specify the NFDI4Culture Wikibase SPARQL endpoint (CURRENTLY UNKNOWN)}
-\CommentTok{\#url = \textquotesingle{}https://query.wbworkshop.tibwiki.io\textquotesingle{}}
+\CommentTok{\# Example using NFDI4Culture Wikibase}
 
-\CommentTok{\# Temporarily using the Wikidata SPARQL endpoint}
-\NormalTok{url }\OperatorTok{=} \StringTok{\textquotesingle{}https://query.wikidata.org/bigdata/namespace/wdq/sparql\textquotesingle{}}
-\NormalTok{user\_agent }\OperatorTok{=} \StringTok{\textquotesingle{}cp4c\_bot/0.0 (https://github.com/SimonXIX/cp4c; ad7588@coventry.ac.uk)\textquotesingle{}}
-\NormalTok{sparql }\OperatorTok{=}\NormalTok{ SPARQLWrapper(url, agent}\OperatorTok{=}\NormalTok{user\_agent)}
+\CommentTok{\# Specify the NFDI4Culture Wikibase SPARQL endpoint}
+\NormalTok{url }\OperatorTok{=} \StringTok{\textquotesingle{}https://query.wbworkshop.tibwiki.io/proxy/wdqs/bigdata/namespace/wdq/sparql\textquotesingle{}}
 
 \CommentTok{\# Query}
+\NormalTok{query }\OperatorTok{=} \StringTok{"""}
+\StringTok{SELECT ?item ?itemLabel ?creationDateStart ?creationDateEnd ?inscription ?materialLabel ?methodLabel ?description ?media}
+\StringTok{WHERE \{ }
+\StringTok{    ?item tibt:P25 tib:Q60.}
+\StringTok{    ?item tibt:P79 ?creationDateStart.}
+\StringTok{    ?item tibt:P80 ?creationDateEnd.}
+\StringTok{    ?item tibt:P18 ?inscription.}
+\StringTok{    ?item tibt:P38 ?material.}
+\StringTok{    ?item tibt:P39 ?method.}
+\StringTok{    ?item tibt:P26 ?description.}
+\StringTok{    ?item tibt:P16 ?media}
+\StringTok{    SERVICE wikibase:label \{ bd:serviceParam wikibase:language "[AUTO\_LANGUAGE],en". \}}
+\StringTok{\} }
+\StringTok{\#All paintings from "Belagerungsszenen des Langen Türkenkriegs"}
+\StringTok{"""}
+
+\NormalTok{df }\OperatorTok{=}\NormalTok{ sparql\_dataframe.get(url, query, post}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+
+\NormalTok{df}
+
+\CommentTok{\# Example using Wikidata}
+
+\CommentTok{\# Specify the Wikidata SPARQL endpoint}
+\CommentTok{\#url = \textquotesingle{}https://query.wikidata.org/bigdata/namespace/wdq/sparql\textquotesingle{}}
+
+\CommentTok{\#user\_agent = \textquotesingle{}cp4c\_bot/0.0 (https://github.com/SimonXIX/cp4c; ad7588@coventry.ac.uk)\textquotesingle{}}
+\CommentTok{\#sparql = SPARQLWrapper(url, agent=user\_agent)}
+
 \CommentTok{\# sparql.setQuery("""}
-\CommentTok{\# SELECT ?item ?itemLabel ?creationDateStart ?creationDateEnd ?inscription ?materialLabel ?methodLabel ?description ?media}
-\CommentTok{\# WHERE \{ }
-\CommentTok{\#     ?item tibt:P25 tib:Q60.}
-\CommentTok{\#     ?item tibt:P79 ?creationDateStart.}
-\CommentTok{\#     ?item tibt:P80 ?creationDateEnd.}
-\CommentTok{\#     ?item tibt:P18 ?inscription.}
-\CommentTok{\#     ?item tibt:P38 ?material.}
-\CommentTok{\#     ?item tibt:P39 ?method.}
-\CommentTok{\#     ?item tibt:P26 ?description.}
-\CommentTok{\#     ?item tibt:P16 ?media}
-\CommentTok{\#     SERVICE wikibase:label \{ bd:serviceParam wikibase:language "[AUTO\_LANGUAGE],en". \}}
-\CommentTok{\# \} }
-\CommentTok{\# \#All paintings from "Belagerungsszenen des Langen Türkenkriegs"}
+\CommentTok{\# \#Cats, with pictures}
+\CommentTok{\# \#defaultView:ImageGrid}
+\CommentTok{\# SELECT ?item ?itemLabel ?pic}
+\CommentTok{\# WHERE}
+\CommentTok{\# \{}
+\CommentTok{\# ?item wdt:P31 wd:Q146 .}
+\CommentTok{\# ?item wdt:P18 ?pic}
+\CommentTok{\# SERVICE wikibase:label \{ bd:serviceParam wikibase:language "[AUTO\_LANGUAGE],en" \}}
+\CommentTok{\# \}}
+\CommentTok{\# LIMIT 2}
 \CommentTok{\# """)}
-\NormalTok{sparql.setQuery(}\StringTok{"""}
-\StringTok{\#Cats, with pictures}
-\StringTok{\#defaultView:ImageGrid}
-\StringTok{SELECT ?item ?itemLabel ?pic}
-\StringTok{WHERE}
-\StringTok{\{}
-\StringTok{?item wdt:P31 wd:Q146 .}
-\StringTok{?item wdt:P18 ?pic}
-\StringTok{SERVICE wikibase:label \{ bd:serviceParam wikibase:language "[AUTO\_LANGUAGE],en" \}}
-\StringTok{\}}
-\StringTok{LIMIT 2}
-\StringTok{"""}\NormalTok{)}
 
 \CommentTok{\# Convert results to JSON format}
-\NormalTok{sparql.setReturnFormat(JSON)}
-\NormalTok{result }\OperatorTok{=}\NormalTok{ sparql.query().convert()}
+\CommentTok{\#sparql.setReturnFormat(JSON)}
+\CommentTok{\#result = sparql.query().convert()}
 
-\ControlFlowTok{for}\NormalTok{ item }\KeywordTok{in}\NormalTok{ result[}\StringTok{\textquotesingle{}results\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}bindings\textquotesingle{}}\NormalTok{]:}
-\NormalTok{    image\_url}\OperatorTok{=}\NormalTok{item[}\StringTok{\textquotesingle{}pic\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{]}
-\NormalTok{    headers }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}User{-}Agent\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}cp4c\_bot/0.0 (https://github.com/SimonXIX/cp4c; ad7588@coventry.ac.uk)\textquotesingle{}}\NormalTok{\}}
-\NormalTok{    im }\OperatorTok{=}\NormalTok{ get\_image(image\_url, headers)}
+\CommentTok{\#for item in result[\textquotesingle{}results\textquotesingle{}][\textquotesingle{}bindings\textquotesingle{}]:}
+    \CommentTok{\# image\_url=item[\textquotesingle{}pic\textquotesingle{}][\textquotesingle{}value\textquotesingle{}]}
+    \CommentTok{\# headers = \{\textquotesingle{}User{-}Agent\textquotesingle{}: \textquotesingle{}cp4c\_bot/0.0 (https://github.com/SimonXIX/cp4c; ad7588@coventry.ac.uk)\textquotesingle{}\}}
+    \CommentTok{\# im = get\_image(image\_url, headers)}
 
-    \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}Cat name: \textquotesingle{}}\NormalTok{, item[}\StringTok{\textquotesingle{}itemLabel\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{])}
-\NormalTok{    display(im)}
+    \CommentTok{\# print(\textquotesingle{}Cat name: \textquotesingle{}, item[\textquotesingle{}itemLabel\textquotesingle{}][\textquotesingle{}value\textquotesingle{}])}
+    \CommentTok{\# display(im)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-Cat name:  Toffee
+/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/IPython/core/formatters.py:342: FutureWarning: In future versions `DataFrame.to_latex` is expected to utilise the base implementation of `Styler.to_latex` for formatting and rendering. The arguments signature may therefore change. It is recommended instead to use `DataFrame.style.to_latex` which also contains additional functionality.
+  return method()
 \end{verbatim}
 
-\begin{figure}[H]
-
-{\centering \includegraphics{./linked_open_data_files/figure-pdf/cell-3-output-2.png}
-
-}
-
-\end{figure}
-
-\begin{verbatim}
-Cat name:  Crimean Tom
-\end{verbatim}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{./linked_open_data_files/figure-pdf/cell-3-output-4.png}
-
-}
-
-\end{figure}
+\begin{tabular}{llllllllll}
+\toprule
+{} &                                               item &                                          itemLabel &     creationDateStart &       creationDateEnd &                                        inscription & materialLabel &   methodLabel &                                        description &                                              media \\
+\midrule
+0  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege VII: The city of Waitzen occupied by the... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Statt Waitzen wie die von vom Türcken beleger... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+1  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege I: The Fortress of Tottis retaken by the... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Tottis, wie die von den Christen bei ... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+2  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege II: The Fortress of Gran occupied by the... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Gran wie die von Christen belegert ge... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+3  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege XII: The Fortress of Gran occupied by th... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Gran wie die vom Türcken belegert gew... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+4  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege XI: The capital city Offen occupied by t... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Hauptstatt Offen, wie die von Christn beleger... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+5  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege III: The Fortress of Raab occupied by th... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Raab, wie die vom Türcken belegert ge... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+6  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege IV: The Fortress of Comorna occupied by ... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Comorna wie die vom Türckn belegert g... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+7  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege V: The Fortress of Gran retaken by the C... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Gran wie die von den Christen wider e... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+8  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege VI: The Fortress of Vizzegrad occupied b... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  “Vestung Vizzegrad wie die von Christen belege... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+9  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege VIII: The Fortress of Raab, which was re... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Raab, die Christen beÿ der Nacht wide... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+10 &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege IX: The capital city Offen occupied by t... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Hauptstatt Offen. wie die von Christen belege... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+11 &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege X: The capital city Offen occupied by th... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Hauptstatt Offen, wie die von Christen belege... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+\bottomrule
+\end{tabular}
 
 \hypertarget{image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505}{%
 \section{Image - Siege III: The Fortress of Raab occupied by the Turks,

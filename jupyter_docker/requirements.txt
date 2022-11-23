@@ -1,2 +1,7 @@
 SPARQLWrapper
 python-benedict
+ipypublish
+pandas
+sparql_dataframe
+matplotlib
+plotly
