@@ -215,8 +215,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#linked-open-data" id="toc-linked-open-data" class="nav-link active" data-scroll-target="#linked-open-data"><span class="toc-section-number">5.1</span>  Linked open data</a></li>
   <li><a href="#wikibase-api-testing" id="toc-wikibase-api-testing" class="nav-link" data-scroll-target="#wikibase-api-testing"><span class="toc-section-number">5.2</span>  Wikibase API testing</a></li>
-  <li><a href="#query" id="toc-query" class="nav-link" data-scroll-target="#query"><span class="toc-section-number">5.3</span>  Query</a></li>
-  <li><a href="#image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505" id="toc-image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505" class="nav-link" data-scroll-target="#image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505"><span class="toc-section-number">5.4</span>  Image - Siege III: The Fortress of Raab occupied by the Turks, 1594. Painting, https://wikibase.wbworkshop.tibwiki.io/wiki/Item:Q505</a></li>
+  <li><a href="#image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505" id="toc-image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505" class="nav-link" data-scroll-target="#image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505"><span class="toc-section-number">5.3</span>  Image - Siege III: The Fortress of Raab occupied by the Turks, 1594. Painting, https://wikibase.wbworkshop.tibwiki.io/wiki/Item:Q505</a></li>
+  <li><a href="#query" id="toc-query" class="nav-link" data-scroll-target="#query"><span class="toc-section-number">5.4</span>  Query</a></li>
   <li><a href="#model-with-annotation---httpswikibase.wbworkshop.tibwiki.iowikiitemq469" id="toc-model-with-annotation---httpswikibase.wbworkshop.tibwiki.iowikiitemq469" class="nav-link" data-scroll-target="#model-with-annotation---httpswikibase.wbworkshop.tibwiki.iowikiitemq469"><span class="toc-section-number">5.5</span>  Model with annotation - https://wikibase.wbworkshop.tibwiki.io/wiki/Item:Q469</a></li>
   <li><a href="#video---developing-an-open-source-data-pipeline-for-participation-in-community-knowledge-bases---httpsav.tib.eumedia56162" id="toc-video---developing-an-open-source-data-pipeline-for-participation-in-community-knowledge-bases---httpsav.tib.eumedia56162" class="nav-link" data-scroll-target="#video---developing-an-open-source-data-pipeline-for-participation-in-community-knowledge-bases---httpsav.tib.eumedia56162"><span class="toc-section-number">5.6</span>  Video - Developing an open source data pipeline for participation in community knowledge bases - https://av.tib.eu/media/56162</a></li>
   </ul>
@@ -283,104 +283,145 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="query" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="query"><span class="header-section-number">5.3</span> Query</h2>
-<p>The below Python code experiments with using SPARQLWrapper to retrieve data from NFDI4Culture’s Wikibase based on a SPARQL query.</p>
-<div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> SPARQLWrapper <span class="im">import</span> SPARQLWrapper, JSON</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ipypublish <span class="im">import</span> nb_setup</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sparql_dataframe</span>
+<section id="image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505"><span class="header-section-number">5.3</span> Image - Siege III: The Fortress of Raab occupied by the Turks, 1594. Painting, https://wikibase.wbworkshop.tibwiki.io/wiki/Item:Q505</h2>
+<p>The below Python code experiments with retrieving data from Wikibase using the API. This takes approx. 18 seconds to run due to the size of the images.</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Global variables</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>endpoint_url <span class="op">=</span> <span class="st">'https://wikibase.wbworkshop.tibwiki.io'</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>resource_url <span class="op">=</span> <span class="st">'/w/api.php'</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>entity_id <span class="op">=</span> <span class="st">'Q505'</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_delay(date):</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        date <span class="op">=</span> datetime.datetime.strptime(date, <span class="st">'%a, </span><span class="sc">%d</span><span class="st"> %b %Y %H:%M:%S GMT'</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        timeout <span class="op">=</span> <span class="bu">int</span>((date <span class="op">-</span> datetime.datetime.now()).total_seconds())</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ValueError</span>:</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        timeout <span class="op">=</span> <span class="bu">int</span>(date)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> timeout</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_image(url, headers):</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers, stream<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        im <span class="op">=</span> Image.<span class="bu">open</span>(r.raw)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> im</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r.status_code <span class="op">==</span> <span class="dv">500</span>:</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r.status_code <span class="op">==</span> <span class="dv">403</span>:</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r.status_code <span class="op">==</span> <span class="dv">429</span>:</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        timeout <span class="op">=</span> get_delay(r.headers[<span class="st">'retry-after'</span>])</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Timeout </span><span class="sc">{}</span><span class="st"> m </span><span class="sc">{}</span><span class="st"> s'</span>.<span class="bu">format</span>(timeout <span class="op">//</span> <span class="dv">60</span>, timeout <span class="op">%</span> <span class="dv">60</span>))</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        time.sleep(timeout)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        get_image(url, headers)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Example using NFDI4Culture Wikibase</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the NFDI4Culture Wikibase SPARQL endpoint</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://query.wbworkshop.tibwiki.io/proxy/wdqs/bigdata/namespace/wdq/sparql'</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Query</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT ?item ?itemLabel ?creationDateStart ?creationDateEnd ?inscription ?materialLabel ?methodLabel ?description ?media</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE { </span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P25 tib:Q60.</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P79 ?creationDateStart.</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P80 ?creationDateEnd.</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P18 ?inscription.</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P38 ?material.</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P39 ?method.</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P26 ?description.</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P16 ?media</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="st">    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="st">} </span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="st">#All paintings from "Belagerungsszenen des Langen Türkenkriegs"</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sparql_dataframe.get(url, query, post<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>df</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Example using Wikidata</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the Wikidata SPARQL endpoint</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co">#url = 'https://query.wikidata.org/bigdata/namespace/wdq/sparql'</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="co">#user_agent = 'cp4c_bot/0.0 (https://github.com/SimonXIX/cp4c; ad7588@coventry.ac.uk)'</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="co">#sparql = SPARQLWrapper(url, agent=user_agent)</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="co"># sparql.setQuery("""</span></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="co"># #Cats, with pictures</span></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="co"># #defaultView:ImageGrid</span></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="co"># SELECT ?item ?itemLabel ?pic</span></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="co"># WHERE</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="co"># {</span></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="co"># ?item wdt:P31 wd:Q146 .</span></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="co"># ?item wdt:P18 ?pic</span></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="co"># SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }</span></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="co"># LIMIT 2</span></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="co"># """)</span></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert results to JSON format</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="co">#sparql.setReturnFormat(JSON)</span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="co">#result = sparql.query().convert()</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co">#for item in result['results']['bindings']:</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>    <span class="co"># image_url=item['pic']['value']</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>    <span class="co"># headers = {'User-Agent': 'cp4c_bot/0.0 (https://github.com/SimonXIX/cp4c; ad7588@coventry.ac.uk)'}</span></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>    <span class="co"># im = get_image(image_url, headers)</span></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print('Cat name: ', item['itemLabel']['value'])</span></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>    <span class="co"># display(im)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_entity (entity_id):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    resourceUrl <span class="op">=</span> <span class="st">'/w/api.php?action=wbgetentities&amp;format=json&amp;ids='</span><span class="op">+</span>entity_id</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    uri <span class="op">=</span> endpoint_url <span class="op">+</span> resourceUrl</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> requests.get(uri)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> r.json()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>media_data <span class="op">=</span> get_entity(entity_id)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>claims <span class="op">=</span> media_data[<span class="st">'entities'</span>][entity_id][<span class="st">'claims'</span>]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">property</span>, values <span class="kw">in</span> claims.items():</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">property</span> <span class="op">==</span> <span class="st">'P22'</span>:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> value <span class="kw">in</span> values:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            image_url <span class="op">=</span> value[<span class="st">'mainsnak'</span>][<span class="st">'datavalue'</span>][<span class="st">'value'</span>]</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            im <span class="op">=</span> Image.<span class="bu">open</span>(requests.get(image_url, stream<span class="op">=</span><span class="va">True</span>).raw)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">property</span> <span class="op">==</span> <span class="st">'P23'</span>:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> value <span class="kw">in</span> values:</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            entity_id <span class="op">=</span> value[<span class="st">'mainsnak'</span>][<span class="st">'datavalue'</span>][<span class="st">'value'</span>][<span class="st">'id'</span>]</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            object_data <span class="op">=</span> get_entity(entity_id)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'English title: '</span>, object_data[<span class="st">'entities'</span>][entity_id][<span class="st">'labels'</span>][<span class="st">'en'</span>][<span class="st">'value'</span>])</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>display(im)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>English title:  Siege III: The Fortress of Raab occupied by the Turks, 1594</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="linked_open_data_files/figure-html/cell-3-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="query" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="query"><span class="header-section-number">5.4</span> Query</h2>
+<p>The below Python code experiments with using SPARQLWrapper to retrieve data from NFDI4Culture’s Wikibase based on a SPARQL query.</p>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> SPARQLWrapper <span class="im">import</span> SPARQLWrapper, JSON</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ipypublish <span class="im">import</span> nb_setup</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sparql_dataframe</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_delay(date):</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        date <span class="op">=</span> datetime.datetime.strptime(date, <span class="st">'%a, </span><span class="sc">%d</span><span class="st"> %b %Y %H:%M:%S GMT'</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        timeout <span class="op">=</span> <span class="bu">int</span>((date <span class="op">-</span> datetime.datetime.now()).total_seconds())</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        timeout <span class="op">=</span> <span class="bu">int</span>(date)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> timeout</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_image(url, headers):</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers, stream<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        im <span class="op">=</span> Image.<span class="bu">open</span>(r.raw)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> im</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r.status_code <span class="op">==</span> <span class="dv">500</span>:</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r.status_code <span class="op">==</span> <span class="dv">403</span>:</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r.status_code <span class="op">==</span> <span class="dv">429</span>:</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        timeout <span class="op">=</span> get_delay(r.headers[<span class="st">'retry-after'</span>])</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Timeout </span><span class="sc">{}</span><span class="st"> m </span><span class="sc">{}</span><span class="st"> s'</span>.<span class="bu">format</span>(timeout <span class="op">//</span> <span class="dv">60</span>, timeout <span class="op">%</span> <span class="dv">60</span>))</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        time.sleep(timeout)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        get_image(url, headers)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Example using NFDI4Culture Wikibase</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the NFDI4Culture Wikibase SPARQL endpoint</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>endpoint_url <span class="op">=</span> <span class="st">'https://query.wbworkshop.tibwiki.io/proxy/wdqs/bigdata/namespace/wdq/sparql'</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Query</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT ?item ?itemLabel ?creationDateStart ?creationDateEnd ?inscription ?materialLabel ?methodLabel ?description ?media</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE { </span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P25 tib:Q60.</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P79 ?creationDateStart.</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P80 ?creationDateEnd.</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P18 ?inscription.</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P38 ?material.</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P39 ?method.</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P26 ?description.</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="st">    ?item tibt:P16 ?media</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="st">    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="st">} </span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="st">#All paintings from "Belagerungsszenen des Langen Türkenkriegs"</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>dataframe <span class="op">=</span> sparql_dataframe.get(endpoint_url, query, post<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>dataframe</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Example using Wikidata</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the Wikidata SPARQL endpoint</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="co">#endpoint_url = 'https://query.wikidata.org/bigdata/namespace/wdq/sparql'</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="co">#user_agent = 'cp4c_bot/0.0 (https://github.com/SimonXIX/cp4c; ad7588@coventry.ac.uk)'</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="co">#sparql = SPARQLWrapper(endpoint_url, agent=user_agent)</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="co"># query = """</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="co"># #Cats, with pictures</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="co"># #defaultView:ImageGrid</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="co"># SELECT ?item ?itemLabel ?pic</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="co"># WHERE</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="co"># {</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="co"># ?item wdt:P31 wd:Q146 .</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="co"># ?item wdt:P18 ?pic</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="co"># SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="co"># LIMIT 2</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a><span class="co"># """</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve results and convert to JSON format</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="co">#sparql.setQuery(query)</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="co">#sparql.setReturnFormat(JSON)</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="co">#result = sparql.query().convert()</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="co">#for item in result['results']['bindings']:</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    <span class="co"># image_url=item['pic']['value']</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>    <span class="co"># headers = {'User-Agent': 'cp4c_bot/0.0 (https://github.com/SimonXIX/cp4c; ad7588@coventry.ac.uk)'}</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>    <span class="co"># im = get_image(image_url, headers)</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print('Cat name: ', item['itemLabel']['value'])</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    <span class="co"># display(im)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/IPython/core/formatters.py:342: FutureWarning: In future versions `DataFrame.to_latex` is expected to utilise the base implementation of `Styler.to_latex` for formatting and rendering. The arguments signature may therefore change. It is recommended instead to use `DataFrame.style.to_latex` which also contains additional functionality.
   return method()</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div class="cell-output cell-output-display" data-execution_count="43">
 
 <div>
 
@@ -547,46 +588,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </tbody>
 </table>
 </div>
-</div>
-</div>
-</section>
-<section id="image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505"><span class="header-section-number">5.4</span> Image - Siege III: The Fortress of Raab occupied by the Turks, 1594. Painting, https://wikibase.wbworkshop.tibwiki.io/wiki/Item:Q505</h2>
-<p>The below Python code experiments with retrieving data from Wikibase using the API. This takes approx. 18 seconds to run due to the size of the images.</p>
-<div class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Global variables</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>endpoint_url <span class="op">=</span> <span class="st">'https://wikibase.wbworkshop.tibwiki.io'</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>resource_url <span class="op">=</span> <span class="st">'/w/api.php'</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>entity_id <span class="op">=</span> <span class="st">'Q505'</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_entity (entity_id):</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    resourceUrl <span class="op">=</span> <span class="st">'/w/api.php?action=wbgetentities&amp;format=json&amp;ids='</span><span class="op">+</span>entity_id</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    uri <span class="op">=</span> endpoint_url <span class="op">+</span> resourceUrl</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> requests.get(uri)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> r.json()</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>media_data <span class="op">=</span> get_entity(entity_id)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>claims <span class="op">=</span> media_data[<span class="st">'entities'</span>][entity_id][<span class="st">'claims'</span>]</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">property</span>, values <span class="kw">in</span> claims.items():</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">property</span> <span class="op">==</span> <span class="st">'P22'</span>:</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> value <span class="kw">in</span> values:</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            image_url <span class="op">=</span> value[<span class="st">'mainsnak'</span>][<span class="st">'datavalue'</span>][<span class="st">'value'</span>]</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>            im <span class="op">=</span> Image.<span class="bu">open</span>(requests.get(image_url, stream<span class="op">=</span><span class="va">True</span>).raw)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">property</span> <span class="op">==</span> <span class="st">'P23'</span>:</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> value <span class="kw">in</span> values:</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            entity_id <span class="op">=</span> value[<span class="st">'mainsnak'</span>][<span class="st">'datavalue'</span>][<span class="st">'value'</span>][<span class="st">'id'</span>]</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            object_data <span class="op">=</span> get_entity(entity_id)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'English title: '</span>, object_data[<span class="st">'entities'</span>][entity_id][<span class="st">'labels'</span>][<span class="st">'en'</span>][<span class="st">'value'</span>])</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>display(im)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>English title:  Siege III: The Fortress of Raab occupied by the Turks, 1594</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="linked_open_data_files/figure-html/cell-4-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
