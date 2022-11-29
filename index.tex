@@ -213,7 +213,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, frame hidden, interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, boxrule=0pt, frame hidden, breakable, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -362,65 +362,13 @@ Unable to display output for mime type(s): application/vnd.plotly.v1+json
 
 \bookmarksetup{startatroot}
 
-\hypertarget{jupyter-notebook-with-linked-open-data}{%
-\chapter{Jupyter Notebook with linked open
-data}\label{jupyter-notebook-with-linked-open-data}}
-
-This notebook experiments with querying linked open data in a Jupyter
-Notebook rendered through Quarto.
-
-The Python code below queries the NFDI4Culture Wikibase at
-https://wikibase.wbworkshop.tibwiki.io/wiki/Main\_Page and returns data
-based on the ID inputted by the user.
-
-This executes in Jupyter Notebook which is able to run the Python code
-and provides a static output when saved in the Notebook. It cannot be
-executed dynamically in Quarto since the Quarto front-end does not
-support stdin input requests.
-
-To reset the output, run `Kernel \textgreater{} Restart kernel and clear
-all outputs'.
-
-\hypertarget{wikibase-api-testing}{%
-\section{Wikibase API testing}\label{wikibase-api-testing}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ requests}
-
-\CommentTok{\# Global variables}
-\NormalTok{endpoint\_url }\OperatorTok{=} \StringTok{\textquotesingle{}https://wikibase.wbworkshop.tibwiki.io\textquotesingle{}}
-\NormalTok{resource\_url }\OperatorTok{=} \StringTok{\textquotesingle{}/w/api.php\textquotesingle{}}
-
-\NormalTok{entity }\OperatorTok{=} \BuiltInTok{input}\NormalTok{(}\StringTok{"What\textquotesingle{}s the Q number (including the \textquotesingle{}Q\textquotesingle{})? "}\NormalTok{)}
-\BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}Check out \textquotesingle{}} \OperatorTok{+}\NormalTok{ endpoint\_url }\OperatorTok{+} \StringTok{\textquotesingle{}/wiki/\textquotesingle{}} \OperatorTok{+}\NormalTok{ entity }\OperatorTok{+} \StringTok{\textquotesingle{} to see the GUI.\textquotesingle{}}\NormalTok{)}
-\NormalTok{resourceUrl }\OperatorTok{=} \StringTok{\textquotesingle{}/w/api.php?action=wbgetclaims\&format=json\&entity=\textquotesingle{}}\OperatorTok{+}\NormalTok{entity}
-\NormalTok{uri }\OperatorTok{=}\NormalTok{ endpoint\_url }\OperatorTok{+}\NormalTok{ resourceUrl}
-\NormalTok{r }\OperatorTok{=}\NormalTok{ requests.get(uri)}
-\NormalTok{data }\OperatorTok{=}\NormalTok{ r.json()}
-\NormalTok{claims }\OperatorTok{=}\NormalTok{ data[}\StringTok{\textquotesingle{}claims\textquotesingle{}}\NormalTok{]}
-\BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}subject: \textquotesingle{}}\NormalTok{, entity)}
-\BuiltInTok{print}\NormalTok{()}
-\ControlFlowTok{for} \BuiltInTok{property}\NormalTok{, values }\KeywordTok{in}\NormalTok{ claims.items():}
-    \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}property: \textquotesingle{}}\NormalTok{, }\BuiltInTok{property}\NormalTok{)}
-    \ControlFlowTok{for}\NormalTok{ value }\KeywordTok{in}\NormalTok{ values:}
-        \ControlFlowTok{try}\NormalTok{:}
-            \CommentTok{\# print Q ID if the value is an item}
-            \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}item value: \textquotesingle{}}\NormalTok{, value[}\StringTok{\textquotesingle{}mainsnak\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}datavalue\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}id\textquotesingle{}}\NormalTok{])}
-        \ControlFlowTok{except}\NormalTok{:}
-            \ControlFlowTok{try}\NormalTok{:}
-                \CommentTok{\# print the string value if the value is a literal}
-                \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}literal value: \textquotesingle{}}\NormalTok{, value[}\StringTok{\textquotesingle{}mainsnak\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}datavalue\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{])}
-            \ControlFlowTok{except}\NormalTok{:}
-                \CommentTok{\# print the whole snak if the value is something else}
-                \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}other value: \textquotesingle{}}\NormalTok{, value[}\StringTok{\textquotesingle{}mainsnak\textquotesingle{}}\NormalTok{])}
-    \BuiltInTok{print}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{image-from-linked-open-data-api}{%
+\chapter{Image from linked open data
+API}\label{image-from-linked-open-data-api}}
 
 \hypertarget{image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505}{%
-\section{Image - Siege III: The Fortress of Raab occupied by the Turks,
-1594. Painting,
+\subsection{Image - Siege III: The Fortress of Raab occupied by the
+Turks, 1594. Painting,
 https://wikibase.wbworkshop.tibwiki.io/wiki/Item:Q505}\label{image---siege-iii-the-fortress-of-raab-occupied-by-the-turks-1594.-painting-httpswikibase.wbworkshop.tibwiki.iowikiitemq505}}
 
 The below Python code experiments with retrieving data from Wikibase
@@ -466,14 +414,17 @@ English title:  Siege III: The Fortress of Raab occupied by the Turks, 1594
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./linked_open_data_files/figure-pdf/cell-3-output-2.png}
+{\centering \includegraphics{./lod_image_files/figure-pdf/cell-2-output-2.png}
 
 }
 
 \end{figure}
 
-\hypertarget{query}{%
-\section{Query}\label{query}}
+\bookmarksetup{startatroot}
+
+\hypertarget{linked-open-data-query-from-sparql}{%
+\chapter{Linked open data query from
+SPARQL}\label{linked-open-data-query-from-sparql}}
 
 The below Python code experiments with using SPARQLWrapper to retrieve
 data from NFDI4Culture's Wikibase based on a SPARQL query.
@@ -573,38 +524,99 @@ data from NFDI4Culture's Wikibase based on a SPARQL query.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/IPython/core/formatters.py:342: FutureWarning: In future versions `DataFrame.to_latex` is expected to utilise the base implementation of `Styler.to_latex` for formatting and rendering. The arguments signature may therefore change. It is recommended instead to use `DataFrame.style.to_latex` which also contains additional functionality.
-  return method()
-\end{verbatim}
+\begin{longtable}[]{@{}llllllllll@{}}
+\toprule()
+& item & itemLabel & creationDateStart & creationDateEnd & inscription &
+materialLabel & methodLabel & description & media \\
+\midrule()
+\endhead
+0 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege VII: The
+city of Waitzen occupied by the... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Statt Waitzen wie die von vom Türcken beleger...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+1 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege I: The
+Fortress of Tottis retaken by the... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Vestung Tottis, wie die von den Christen bei ...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+2 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege II: The
+Fortress of Gran occupied by the... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Vestung Gran wie die von Christen belegert ge...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+3 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege XII: The
+Fortress of Gran occupied by th... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Vestung Gran wie die vom Türcken belegert gew...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+4 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege XI: The
+capital city Offen occupied by t... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Hauptstatt Offen, wie die von Christn beleger...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+5 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege III: The
+Fortress of Raab occupied by th... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Vestung Raab, wie die vom Türcken belegert ge...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+6 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege IV: The
+Fortress of Comorna occupied by ... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Vestung Comorna wie die vom Türckn belegert g...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+7 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege V: The
+Fortress of Gran retaken by the C... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Vestung Gran wie die von den Christen wider e...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+8 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege VI: The
+Fortress of Vizzegrad occupied b... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & ``Vestung Vizzegrad wie die von Christen
+belege... & Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+9 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege VIII: The
+Fortress of Raab, which was re... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Vestung Raab, die Christen beÿ der Nacht wide...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+10 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege IX: The
+capital city Offen occupied by t... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Hauptstatt Offen. wie die von Christen belege...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+11 & https://wikibase.wbworkshop.tibwiki.io/entity/... & Siege X: The
+capital city Offen occupied by th... & 1602-01-01T00:00:00Z &
+1604-01-01T00:00:00Z & „Hauptstatt Offen, wie die von Christen belege...
+& Canvas & Oil painting &
+https://wikibase.wbworkshop.tibwiki.io/entity/... &
+https://wikibase.wbworkshop.tibwiki.io/entity/... \\
+\bottomrule()
+\end{longtable}
 
-\begin{tabular}{llllllllll}
-\toprule
-{} &                                               item &                                          itemLabel &     creationDateStart &       creationDateEnd &                                        inscription & materialLabel &   methodLabel &                                        description &                                              media \\
-\midrule
-0  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege VII: The city of Waitzen occupied by the... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Statt Waitzen wie die von vom Türcken beleger... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-1  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege I: The Fortress of Tottis retaken by the... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Tottis, wie die von den Christen bei ... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-2  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege II: The Fortress of Gran occupied by the... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Gran wie die von Christen belegert ge... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-3  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege XII: The Fortress of Gran occupied by th... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Gran wie die vom Türcken belegert gew... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-4  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege XI: The capital city Offen occupied by t... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Hauptstatt Offen, wie die von Christn beleger... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-5  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege III: The Fortress of Raab occupied by th... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Raab, wie die vom Türcken belegert ge... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-6  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege IV: The Fortress of Comorna occupied by ... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Comorna wie die vom Türckn belegert g... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-7  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege V: The Fortress of Gran retaken by the C... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Gran wie die von den Christen wider e... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-8  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege VI: The Fortress of Vizzegrad occupied b... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  “Vestung Vizzegrad wie die von Christen belege... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-9  &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege VIII: The Fortress of Raab, which was re... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Vestung Raab, die Christen beÿ der Nacht wide... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-10 &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege IX: The capital city Offen occupied by t... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Hauptstatt Offen. wie die von Christen belege... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-11 &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  Siege X: The capital city Offen occupied by th... &  1602-01-01T00:00:00Z &  1604-01-01T00:00:00Z &  „Hauptstatt Offen, wie die von Christen belege... &        Canvas &  Oil painting &  https://wikibase.wbworkshop.tibwiki.io/entity/... &  https://wikibase.wbworkshop.tibwiki.io/entity/... \\
-\bottomrule
-\end{tabular}
+\bookmarksetup{startatroot}
 
-\hypertarget{model-with-annotation---httpswikibase.wbworkshop.tibwiki.iowikiitemq469}{%
-\section{Model with annotation -
-https://wikibase.wbworkshop.tibwiki.io/wiki/Item:Q469}\label{model-with-annotation---httpswikibase.wbworkshop.tibwiki.iowikiitemq469}}
+\hypertarget{d-model-with-annotations}{%
+\chapter{3D model with annotations}\label{d-model-with-annotations}}
 
-\hypertarget{video---developing-an-open-source-data-pipeline-for-participation-in-community-knowledge-bases---httpsav.tib.eumedia56162}{%
-\section{Video - Developing an open source data pipeline for
-participation in community knowledge bases -
-https://av.tib.eu/media/56162}\label{video---developing-an-open-source-data-pipeline-for-participation-in-community-knowledge-bases---httpsav.tib.eumedia56162}}
+\bookmarksetup{startatroot}
+
+\hypertarget{embedded-video}{%
+\chapter{Embedded video}\label{embedded-video}}
+
+The below Python code experiments with retrieving video data via iframe
+embedding.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -618,6 +630,64 @@ https://av.tib.eu/media/56162}\label{video---developing-an-open-source-data-pipe
 \begin{verbatim}
 <IPython.core.display.HTML object>
 \end{verbatim}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{linked-open-data-api-testing}{%
+\chapter{Linked open data API
+testing}\label{linked-open-data-api-testing}}
+
+This notebook experiments with querying linked open data in a Jupyter
+Notebook rendered through Quarto.
+
+The Python code below queries the NFDI4Culture Wikibase at
+https://wikibase.wbworkshop.tibwiki.io/wiki/Main\_Page and returns data
+based on the ID inputted by the user.
+
+This executes in Jupyter Notebook which is able to run the Python code
+and provides a static output when saved in the Notebook. It cannot be
+executed dynamically in Quarto since the Quarto front-end does not
+support stdin input requests.
+
+To reset the output, run `Kernel \textgreater{} Restart kernel and clear
+all outputs'.
+
+\hypertarget{wikibase-api-testing}{%
+\section{Wikibase API testing}\label{wikibase-api-testing}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ requests}
+
+\CommentTok{\# Global variables}
+\NormalTok{endpoint\_url }\OperatorTok{=} \StringTok{\textquotesingle{}https://wikibase.wbworkshop.tibwiki.io\textquotesingle{}}
+\NormalTok{resource\_url }\OperatorTok{=} \StringTok{\textquotesingle{}/w/api.php\textquotesingle{}}
+
+\NormalTok{entity }\OperatorTok{=} \BuiltInTok{input}\NormalTok{(}\StringTok{"What\textquotesingle{}s the Q number (including the \textquotesingle{}Q\textquotesingle{})? "}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}Check out \textquotesingle{}} \OperatorTok{+}\NormalTok{ endpoint\_url }\OperatorTok{+} \StringTok{\textquotesingle{}/wiki/\textquotesingle{}} \OperatorTok{+}\NormalTok{ entity }\OperatorTok{+} \StringTok{\textquotesingle{} to see the GUI.\textquotesingle{}}\NormalTok{)}
+\NormalTok{resourceUrl }\OperatorTok{=} \StringTok{\textquotesingle{}/w/api.php?action=wbgetclaims\&format=json\&entity=\textquotesingle{}}\OperatorTok{+}\NormalTok{entity}
+\NormalTok{uri }\OperatorTok{=}\NormalTok{ endpoint\_url }\OperatorTok{+}\NormalTok{ resourceUrl}
+\NormalTok{r }\OperatorTok{=}\NormalTok{ requests.get(uri)}
+\NormalTok{data }\OperatorTok{=}\NormalTok{ r.json()}
+\NormalTok{claims }\OperatorTok{=}\NormalTok{ data[}\StringTok{\textquotesingle{}claims\textquotesingle{}}\NormalTok{]}
+\BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}subject: \textquotesingle{}}\NormalTok{, entity)}
+\BuiltInTok{print}\NormalTok{()}
+\ControlFlowTok{for} \BuiltInTok{property}\NormalTok{, values }\KeywordTok{in}\NormalTok{ claims.items():}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}property: \textquotesingle{}}\NormalTok{, }\BuiltInTok{property}\NormalTok{)}
+    \ControlFlowTok{for}\NormalTok{ value }\KeywordTok{in}\NormalTok{ values:}
+        \ControlFlowTok{try}\NormalTok{:}
+            \CommentTok{\# print Q ID if the value is an item}
+            \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}item value: \textquotesingle{}}\NormalTok{, value[}\StringTok{\textquotesingle{}mainsnak\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}datavalue\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}id\textquotesingle{}}\NormalTok{])}
+        \ControlFlowTok{except}\NormalTok{:}
+            \ControlFlowTok{try}\NormalTok{:}
+                \CommentTok{\# print the string value if the value is a literal}
+                \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}literal value: \textquotesingle{}}\NormalTok{, value[}\StringTok{\textquotesingle{}mainsnak\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}datavalue\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{])}
+            \ControlFlowTok{except}\NormalTok{:}
+                \CommentTok{\# print the whole snak if the value is something else}
+                \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}other value: \textquotesingle{}}\NormalTok{, value[}\StringTok{\textquotesingle{}mainsnak\textquotesingle{}}\NormalTok{])}
+    \BuiltInTok{print}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
 \bookmarksetup{startatroot}
 
