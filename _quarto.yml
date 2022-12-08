@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "Computational Publishing for Archives"
+  title: "Computational Publishing for Collections"
   author: "Simon Worthington"
   date: "09/11/2022"
   chapters:

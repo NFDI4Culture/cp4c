@@ -12,3 +12,5 @@ RUN gdebi --non-interactive quarto-1.2.269-linux-amd64.deb
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
+
+RUN quarto install tinytex
