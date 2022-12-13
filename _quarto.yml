@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "Computational Publishing for Archives"
+  title: "Computational Publishing for Collections"
   author: "Simon Worthington"
   date: "09/11/2022"
   chapters:
@@ -19,7 +19,7 @@ book:
     - linked_open_data_testing.ipynb
     - orcid_get_works_by_person.ipynb
     - references.qmd
-  repo-url: https://github.com/NFDI4Culture/cp4a/
+  repo-url: https://github.com/NFDI4Culture/cp4c/
   repo-actions: [edit]
   downloads: [pdf]
 
