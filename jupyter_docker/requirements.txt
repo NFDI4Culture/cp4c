@@ -6,3 +6,6 @@ sparql_dataframe
 matplotlib
 plotly
 obj2html
+streamlit
+pillow
+qrcode
