@@ -8,6 +8,7 @@ services:
     volumes:
       - ./jupyter_data:/opt/app/data
       - ./jupyter_docker/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
+      - ./:/notebooks
     entrypoint: sh -c 'jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --notebook-dir=/opt/app/data --allow-root'
     
   quarto:
