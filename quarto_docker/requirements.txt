@@ -3,10 +3,11 @@ SPARQLWrapper
 python-benedict
 ipypublish
 pandas
-sparql_dataframe
+sparql-dataframe
 matplotlib
 plotly
 obj2html
 streamlit
 pillow
 qrcode
+numpy-stl
